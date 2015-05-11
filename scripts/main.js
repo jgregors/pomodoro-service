@@ -20,7 +20,7 @@ function setTimer() {
 		throw new Error('duration entered is not a number');
 	}
 	
-	timer = new Pomodoro.Timer(duration, updateDisplay);
+	timer = new Pomodoro.Timer(duration, [updateDisplay]);
 
 	document.getElementById('startButton').disabled = false;
 	document.getElementById('resetButton').disabled = false;

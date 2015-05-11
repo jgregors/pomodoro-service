@@ -2,14 +2,21 @@
 
 var Pomodoro = Pomodoro || new function() {
 
-    this.Timer = function(duration, listener) {
+    this.Timer = function(duration, subscribers) {
 
         var _id = null;
         var _initial = duration;
         var _remaining = duration;
-        var notifyTick = listener;
+        var _subscribers = subscribers;
+        
+        var i, len;
+        var notifySubscribers = function(tick) {
+            for (i = 0, len = _subscribers.length; i < len; ++i) {
+                _subscribers[i](tick);
+            }
+        };
 
-        notifyTick(_initial);
+        notifySubscribers(_initial);
 
         this.start = function() {
 
@@ -25,7 +32,7 @@ var Pomodoro = Pomodoro || new function() {
                    return;  
                 }
 
-                notifyTick(_remaining);
+                notifySubscribers(_remaining);
 
            }, 1000);
         }
@@ -40,7 +47,7 @@ var Pomodoro = Pomodoro || new function() {
         this.reset = function() {
             this.stop();
             _remaining = _initial;
-            notifyTick(_remaining);
+            notifySubscribers(_remaining);
         }
 
         this.isRunning = function() {
