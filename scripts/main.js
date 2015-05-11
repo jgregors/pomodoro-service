@@ -9,7 +9,18 @@ document.getElementById('stopButton')
 document.getElementById('resetButton')
 .addEventListener('click', resetTimer);
 
-var timer = new Pomodoro.Timer(5, updateDisplay);
+document.getElementById('setButton')
+.addEventListener('click', setTimer);
+
+var timer;
+
+function setTimer() {
+	var duration = parseInt(document.getElementById('duration').value);
+	if(isNaN(duration)) {
+		throw new Error('duration entered is not a number');
+	}
+	timer = new Pomodoro.Timer(duration, updateDisplay);
+}
 
 function startTimer() {
 	timer.start();   
