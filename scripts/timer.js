@@ -9,11 +9,8 @@ var Pomodoro = Pomodoro || new function() {
         var _remaining = duration;
         var _subscribers = subscribers;
         
-        var i, len;
         var notifySubscribers = function(tick) {
-            for (i = 0, len = _subscribers.length; i < len; ++i) {
-                _subscribers[i](tick);
-            }
+            _subscribers.forEach(function(subscriber) { subscriber(tick); });
         };
 
         notifySubscribers(_initial);
