@@ -6,8 +6,10 @@ document.getElementById('startButton')
 document.getElementById('stopButton')
 .addEventListener('click', stopTimer);
 
-var timer = new Pomodoro.Timer(5);
-timer.notifyTick = updateDisplay;
+document.getElementById('resetButton')
+.addEventListener('click', resetTimer);
+
+var timer = new Pomodoro.Timer(5, updateDisplay);
 
 function startTimer() {
 	timer.start();   
@@ -15,6 +17,10 @@ function startTimer() {
 
 function stopTimer() {
 	timer.stop();   
+}
+
+function resetTimer() {
+	timer.reset();   
 }
 
 function updateDisplay(remaining) {
